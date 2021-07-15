@@ -1,0 +1,227 @@
+﻿@model IEnumerable<FBIApplication.Models.Result>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script type="text/javascript">
+
+        var canvas;
+        var context;
+        var Val_Max;
+        var Val_Min;
+        var sections;
+        var xScale;
+        var yScale;
+        var y;
+        // values of each item on the graph
+        var itemName = ["2019", "2018", "2017", "2016", "2015"];
+        var itemValue = [328239523, 326687501, 325147121, 323405935, 320896618];
+
+        function init() {
+            // intialize values for each variables
+            sections = 5;
+            Val_Max = 350000000;
+            Val_Min = 300000000;
+
+            var stepSize = 10000000;
+            var columnSize = 50;
+            var rowSize = 60;
+            var margin = 10;
+            var header = "Year vs Total Population  $"
+            //
+
+            canvas = document.getElementById("canvas");
+            context = canvas.getContext("2d");
+            context.fillStyle = "#000;"
+
+            yScale = (canvas.height - columnSize - margin) / (Val_Max);
+            xScale = (canvas.width - rowSize) / (sections + 1);
+
+            context.strokeStyle = "#000;"; // background black lines
+            context.beginPath();
+            // column names
+            context.font = "19 pt Arial;"
+            context.fillText(header, 0, columnSize - margin);
+            // draw lines in the background
+            context.font = "16 pt Helvetica"
+            var count = 0;
+            for (scale = Val_Max; scale >= 0; scale = scale - stepSize) {
+                y = columnSize + (yScale * count * stepSize);
+                context.fillText(scale, margin, y + margin);
+                context.moveTo(rowSize, y)
+                context.lineTo(canvas.width, y)
+                count++;
+            }
+            context.stroke();
+
+            // print names of each data entry
+            context.font = "20 pt Verdana";
+            context.textBaseline = "bottom";
+            for (i = 0; i < 5; i++) {
+                computeHeight(itemValue[i]);
+                context.fillText(itemName[i], xScale * (i + 1), y - margin);
+            }
+
+            // shadow for graph's bar lines with color and offset
+
+            context.fillStyle = "#9933FF;";
+            context.shadowColor = 'rgba(128,128,128, 0.5)';
+
+            //shadow offset along X and Y direction
+            context.shadowOffsetX = 9;
+            context.shadowOffsetY = 3;
+
+            // translate to bottom of graph  inorder to match the data
+            context.translate(0, canvas.height - margin);
+            context.scale(xScale, -1 * yScale);
+
+            // draw each graph bars
+            for (i = 0; i < 5; i++) {
+                context.fillRect(i + 1, 0, 0.3, itemValue[i]);
+            }
+        }
+
+        function computeHeight(value) {
+            y = canvas.height - value * yScale;
+        }
+
+    </script>
+
+</head>
+
+<style>
+    h2 {
+        outline-style: hidden;
+        outline-color: #92a8d1;
+        text-decoration-color: linen;
+    }
+    /* body,html{
+      padding:0;
+      margin:10px;
+      background:#fcc;
+    } */
+    table {
+        border-spacing: 0px;
+    }
+
+    h {
+        border: 2px solid powderblue;
+        padding: 30px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 75px;
+        text-align: center;
+        color: orangered;
+        font-weight: bold;
+    }
+
+    /*#t01 tr:nth-child(even) {
+        background-color: #eee;
+    }
+
+    #t01 tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    #t01 th {
+        background-color: black;
+        color: wheat;
+    }*/
+
+    body {
+        /*background-image: url('https://www.sciencenewsforstudents.org/wp-content/uploads/2019/11/860_main_crime_by_the_numbers_0.png');
+        */ background-image: url('/css/SRSimage1.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        
+    }
+    canvas {
+        background: #ffffff;
+        box-shadow: 5px 5px 5px #ccc;
+        border: 5px solid #eee;
+        margin-bottom: 10px;
+    }
+</style>
+
+<body onLoad="init()">
+    <h2 style="text-align: center; color:orangered; size: 20px;"><strong>SUMMARY PARTICIPATION SYSTEM[SRS]</strong> </h2>
+
+    <h3>
+        <a asp-action="Create" style="color:orangered">Create New</a>
+    </h3>
+    <table id="t01" class="table table-hover" style="opacity: 1;">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.data_year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.population)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.total_agency_count)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.active_agency_count)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @foreach (var item in Model)
+
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.data_year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.population)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.total_agency_count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.active_agency_count)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ResultId" style="color:blue">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ResultId" style="color:darkgreen">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ResultId" style="color:red">Delete</a>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+    <br>
+    <p1 style="color: linen;"><strong> This Data shows the Distribution of the Crimes in the United States and It Segregates the crime into Categories.We can infer that the numbe rof violent crimes shows a decreasing trend as law enforcement agencies are becoming more efficient over the years</strong></p1>
+    <br />
+    <br />
+    <div>
+        <h2>Population vs Year(Total 5)</h2>
+
+        <canvas id="canvas" height="400" width="650">
+        </canvas>
+    </div>
+
+</body>

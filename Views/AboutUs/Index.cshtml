@@ -1,0 +1,135 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About us</title>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        /* Create three equal columns next to each other */
+        .column {
+            flex: 25%;
+            padding: 5px;
+            color: wheat;
+        }
+
+        .body {
+            background-color: black;
+        }
+
+        .aboutus {
+            color: wheat;
+        }
+
+        /* Clear floats after rows */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* Content */
+.content {
+  background-color: black;
+  padding: 10px;
+}
+
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+media screen and (max-width: 600px) {
+  .column {
+    width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+media screen and (max-width: 300px) {
+        .column 
+        {
+            width: 50%;
+        }
+          }
+
+
+    </style>
+
+
+</head>
+
+<body class="body">
+    <!-- <body style="background-color: black;"></body> -->
+    <!----<div class="">
+        <a href="index.html" style="font-size:30px;color:white">Back to Home</a>
+    </div>-->
+    <div class="aboutus">
+        <h1 style="text-align:center">About Us</h1>
+        <p> This application shows the summarized data of different types and count of law enforcement agencies and the officers employed in different agencies with respect to state population metrics </p>
+
+        <hr>
+
+    </div>
+
+    <div class="row">
+
+        <div class="column" name="team member1">
+            <!-- style="width:200px;height:280px;" -->
+            <!-- style="width:100%"  -->
+            <img src="~/css/Aneesh.jpg" alt="Picture of Aneesh" style="width:250px;height:250px;">
+            <h3> Aneesh prayaga</h3>
+            <p>Aneesh is a MS BAIS student and he's in summer semester . He's Passionate about Swimming and Outdoor sports.</br><br /> He was involved in cloud deployment, CRUD Operations and Model creation </p>
+        </div>
+
+        <div class="column">
+            <img src="~/css/Amulya Image.jpg" alt="Picture of Amulya" style="width:250px;height:250px;">
+            <h3> Amulya Alwala</h3>
+            <p>Amulya is a graduate student at USF, with prior experience as a business analyst and software engineer</br><br /> She was involved in ERD design, CRUD operations,API consumption and cloud deployment</p>
+        </div>
+
+        <div class="column">
+            <img src="~/css/phani edit1.jpg" alt="Picture of Raj phanindra" style="width:250px;height:250px;">
+            <h3> Raj Phani kakarla</h3>
+            <p>A graduate student with 2+ years of professional experience, Raj has technical expertise in full stack web application development using Java and Java script.</br><br /> He was involved in project set up, UI design, Database operations,API and cloud deployment</p>
+        </div>
+
+        <div class="column">
+            <img src="~/css/karna.png" alt="Picture of Karna Harsha Reddy" style="width:250px;height:250px;">
+            <h3> Karna Harsha</h3>
+            <p> Karna is a MS BAIS student and he's in summer semester, He is passionate about basketball and scuba diving</br><br /> He contributed in the implementation of UI design and database operations </p>
+        </div>
+
+    </div>
+
+    <h3 style="color: wheat;">Technical Details</h3>
+    <p style="color: wheat;">The data in the Law Enforcement data master table and participation table is populated from this api link</p>
+    <a href="https://crime-data-explorer.fr.cloud.gov/pages/docApi">Api Endpoint</a>
+    <br/>
+    <br/>
+
+    <a href="https://github.com/rajphani21/FBIApplication.git">Github Link</a>
+
+    <br />
+    <br />
+
+    <h3 style="color: wheat;"> Entity Relationship Diagram</h3>
+    <div class="content">
+
+        <img src="~/css/Assignment4ERD.jpeg" alt="ERD" style="width:500px;height:500px;">
+
+    </div>
+
+</body>
+</html>
